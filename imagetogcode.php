@@ -1,9 +1,9 @@
 <?php
 
 //params
-$gcodefilename="example.gcode";
-$imagefilename="example.png";
-$grayscaledimage="examplegray.jpg";
+$gcodefilename="bn.gcode";
+$imagefilename="bn.png";
+$grayscaledimage="bngray.jpg";
 $thickness = 2.50;
 $workspeed = 50;
 $movespeed = 150;
@@ -27,7 +27,7 @@ $im = new Imagick( $imagefilename );
 $im->modulateImage(100,0,100);
 
 //scale image for passes http://php.net/manual/en/imagick.resizeimage.php
-$im->resizeImage($finw,$finh,Imagick::FILTER_LANCZOS,0);  
+$im->resizeImage($finw,$finh,Imagick::FILTER_LANCZOS,0);
 
 //save scaled image for check
 $im->setImageFormat ("jpeg");
@@ -53,11 +53,11 @@ for ($x = 0; $x < $imw; $x++) {
        }
        $pixel = $im->getImagePixelColor($x,$yc);
        $color = $pixel->getColor();
-       $zval = (floatval($thickness/255))*(floatval($color['r']));
+       $zval = (floatval(floatval($thickness)/floatval(255)))*(floatval($color['r']));
        $zval = number_format($zval, 2, '.', '');
        fwrite($gcodefile, "G01 Z-".$zval." F".$workspeed."\n");
-       $xg=floatval($x*$tooldiam);
-       $yg=floatval($ry*$tooldiam);
+       $xg=number_format(floatval($x*$tooldiam), 2, '.', '');
+       $yg=number_format(floatval($ry*$tooldiam), 2, '.', '');
        fwrite($gcodefile, "G01 X".$xg." Y".$yg." Z-".$zval." F".$workspeed."\n");
     }
 
