@@ -1,5 +1,6 @@
 <?php
-
+//http://php.net/manual/en/ref.image.php
+//http://php.net/manual/en/book.imagick.php
 //params
 $gcodefilename="bike.gcode";
 $imagefilename="bike.jpg";
